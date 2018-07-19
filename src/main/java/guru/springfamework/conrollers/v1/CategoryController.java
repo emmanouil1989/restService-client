@@ -2,7 +2,7 @@ package guru.springfamework.conrollers.v1;
 
 import guru.springfamework.CategoryService.CategoryService;
 import guru.springfamework.api.v1.model.CategoryDTO;
-import guru.springfamework.api.v1.model.mapper.CategoryListDTO;
+import guru.springfamework.api.v1.model.CategoryListDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
