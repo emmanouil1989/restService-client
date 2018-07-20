@@ -1,17 +1,15 @@
 package guru.springfamework.conrollers.v1;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import guru.springfamework.CategoryService.CustomerService;
 import guru.springfamework.api.v1.model.CustomerDTO;
 import guru.springfamework.api.v1.model.CustomerListDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/customers/")
+@RequestMapping("/api/v1/customers")
 public class CustomerController {
 
     CustomerService customerService;
@@ -25,9 +23,16 @@ public class CustomerController {
         return new ResponseEntity<>(CustomerListDTO.builder().customers(customerService.getAllCustomers()).build(),HttpStatus.OK);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<CustomerDTO> getCustomerById(@PathVariable Long id){
         return new ResponseEntity<>(customerService.getCustomerById(id),HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<CustomerDTO> createCustomer(@RequestBody CustomerDTO customerDTO){
+
+        CustomerDTO customer = customerService.createCustomer(customerDTO);
+        return  new ResponseEntity<>(customer,HttpStatus.CREATED);
     }
 
 }

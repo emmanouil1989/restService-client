@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
@@ -55,4 +57,15 @@ public class CustomerServiceImplTest extends EntitiesAbstract {
     }
 
 
+    @Test
+    public void createCustomer() {
+
+        when(customerRepository.save(any())).thenReturn(getCustomer());
+
+
+        CustomerDTO customer = customerService.createCustomer(getCustomer1DTO());
+
+        assertNotNull(customer);
+        assertEquals(OUAOU,customer.getFirstname());
+    }
 }

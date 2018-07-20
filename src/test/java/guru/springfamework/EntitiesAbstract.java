@@ -13,6 +13,7 @@ abstract public  class EntitiesAbstract {
     public static final String LASTNAME = "manos";
 
     public static final String NAME = "JIM";
+    public static final String OUAOU = "ouaou";
 
     public List<Customer> getCustomerList() {
         return Arrays.asList(getCustomer(),getCustomer2());
@@ -27,11 +28,11 @@ abstract public  class EntitiesAbstract {
     }
 
     public Customer getCustomer() {
-        String ouaou = "ouaou";
+
         return Customer.builder()
                 .id(2l)
-                .firstname(ouaou)
-                .lastname(ouaou)
+                .firstname(OUAOU)
+                .lastname(OUAOU)
                 .build();
     }
 
@@ -43,6 +44,7 @@ abstract public  class EntitiesAbstract {
         return CustomerDTO.builder()
                 .firstname(NAME)
                 .lastname(NAME)
+                .customer_url("/api/v1/customers/1")
                 .build();
     }
 
