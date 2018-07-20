@@ -51,27 +51,27 @@ public class Bootstrap implements CommandLineRunner {
 
     private void saveCustomers() {
         Customer manos = Customer.builder()
-                .fristname("manos")
+                .firstname("manos")
                 .lastname("manos")
                 .build();
 
         Customer nef = Customer.builder()
-                .fristname("nef")
+                .firstname("nef")
                 .lastname("nef")
                 .build();
 
         Customer xenia = Customer.builder()
-                .fristname("xenia")
+                .firstname("xenia")
                 .lastname("xenia")
                 .build();
 
         Customer georgina = Customer.builder()
-                .fristname("georgina")
+                .firstname("georgina")
                 .lastname("georgina")
                 .build();
 
         Customer lol = Customer.builder()
-                .fristname("lol")
+                .firstname("lol")
                 .lastname("lol")
                 .build();
         customerRepository.save(manos);

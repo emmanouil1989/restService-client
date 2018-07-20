@@ -17,13 +17,12 @@ public class CustomerMapperTest {
     public void categoryToCategoryDTO() {
         Customer customer = Customer.builder()
                 .id(ID)
-                .fristname(NAME)
+                .firstname(NAME)
                 .lastname(NAME)
                 .build();
 
         CustomerDTO customerDTO = customerMapper.convertToCustomerDTO(customer);
 
-        assertEquals(Long.valueOf(ID), customerDTO.getId());
         assertEquals(NAME, customerDTO.getFirstname());
         assertEquals(NAME, customerDTO.getLastname());
     }

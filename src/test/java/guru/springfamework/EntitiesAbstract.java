@@ -22,14 +22,15 @@ abstract public  class EntitiesAbstract {
         return Customer.builder()
                 .id(1L)
                 .lastname(LASTNAME)
-                .fristname(FRISTNAME)
+                .firstname(FRISTNAME)
                 .build();
     }
 
     public Customer getCustomer() {
         String ouaou = "ouaou";
         return Customer.builder()
-                .fristname(ouaou)
+                .id(2l)
+                .firstname(ouaou)
                 .lastname(ouaou)
                 .build();
     }
@@ -40,7 +41,6 @@ abstract public  class EntitiesAbstract {
 
     public CustomerDTO getCustomer1DTO(){
         return CustomerDTO.builder()
-                .id(2l)
                 .firstname(NAME)
                 .lastname(NAME)
                 .build();
@@ -50,7 +50,6 @@ abstract public  class EntitiesAbstract {
         return CustomerDTO.builder()
                 .lastname(LASTNAME)
                 .firstname(FRISTNAME)
-                .id(1l)
                 .build();
     }
 
