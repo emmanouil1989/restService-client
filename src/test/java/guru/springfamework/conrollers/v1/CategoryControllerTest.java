@@ -1,8 +1,8 @@
 package guru.springfamework.conrollers.v1;
 
 import guru.springfamework.CategoryService.CategoryService;
+import guru.springfamework.EntitiesAbstract;
 import guru.springfamework.api.v1.model.CategoryDTO;
-import guru.springfamework.domain.Category;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -12,21 +12,18 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.junit.Assert.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class CategoryControllerTest {
+public class CategoryControllerTest extends EntitiesAbstract {
 
-    private static final String NAME = "JIM";
     @Mock
     CategoryService categoryService;
 
@@ -65,23 +62,5 @@ public class CategoryControllerTest {
                 .andExpect(jsonPath("$.name",equalTo(NAME)));
     }
 
-    private List<CategoryDTO> getCategories() {
-        CategoryDTO category1  = getCategory1();
-        CategoryDTO category2 = getCategory2();
-        return Arrays.asList(category1,category2);
-    }
 
-    private CategoryDTO getCategory2() {
-        return CategoryDTO.builder()
-                .id(1l)
-                .name("BOB")
-                .build();
-    }
-
-    private CategoryDTO getCategory1() {
-        return CategoryDTO.builder()
-                .id(1l)
-                .name(NAME)
-                .build();
-    }
 }

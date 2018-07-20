@@ -1,5 +1,6 @@
 package guru.springfamework.CategoryService;
 
+import guru.springfamework.EntitiesAbstract;
 import guru.springfamework.api.v1.model.CustomerDTO;
 import guru.springfamework.api.v1.model.mapper.CustomerMapper;
 import guru.springfamework.domain.Customer;
@@ -17,10 +18,8 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 
-public class CustomerServiceImplTest {
+public class CustomerServiceImplTest extends EntitiesAbstract {
 
-    private static final String FRISTNAME = "manos";
-    private static final String LASTNAME = "manos";
     @Mock
     CustomerRepository customerRepository;
 
@@ -51,28 +50,9 @@ public class CustomerServiceImplTest {
 
         CustomerDTO customer = customerService.getCustomerById(1L);
 
-        assertEquals(FRISTNAME,customer.getFristname());
+        assertEquals(FRISTNAME,customer.getFirstname());
         assertEquals(LASTNAME, customer.getLastname());
     }
 
-    private List<Customer> getCustomerList() {
-        return Arrays.asList(getCustomer(),getCustomer2());
-    }
-
-    private Customer getCustomer2() {
-        return Customer.builder()
-                .id(1L)
-                .lastname(LASTNAME)
-                .fristname(FRISTNAME)
-                .build();
-    }
-
-    private Customer getCustomer() {
-        String ouaou = "ouaou";
-        return Customer.builder()
-                .fristname(ouaou)
-                .lastname(ouaou)
-                .build();
-    }
 
 }
