@@ -23,12 +23,14 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Slf4j
 public class CustomerControllerTest extends EntitiesAbstract {
 
+    private static final String API_V1_CUSTOMERS = "/api/v1/customers";
     @Mock
     CustomerService customerService;
 
@@ -71,10 +73,23 @@ public class CustomerControllerTest extends EntitiesAbstract {
 
         when(customerService.createCustomer(any())).thenReturn(getCustomer2DTO());
 
-        mockMvc.perform(post("/api/v1/customers")
+        mockMvc.perform(post(API_V1_CUSTOMERS)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonHelper.toJson(getCustomer1DTO())))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.firstname", equalTo(FRISTNAME)));
+    }
+
+    @Test
+    public void updateCustomer() throws Exception {
+        when(customerService.updateCustomer(any(),any())).thenReturn(getCustomer2DTO());
+
+        mockMvc.perform(put(API_V1_CUSTOMERS + "/2")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(JsonHelper.toJson(getCustomer2DTO())))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.firstname", equalTo(FRISTNAME)));
+
+
     }
 }

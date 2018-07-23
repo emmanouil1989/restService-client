@@ -1,6 +1,5 @@
 package guru.springfamework.conrollers.v1;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import guru.springfamework.CategoryService.CustomerService;
 import guru.springfamework.api.v1.model.CustomerDTO;
 import guru.springfamework.api.v1.model.CustomerListDTO;
@@ -34,5 +33,13 @@ public class CustomerController {
         CustomerDTO customer = customerService.createCustomer(customerDTO);
         return  new ResponseEntity<>(customer,HttpStatus.CREATED);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO){
+
+        CustomerDTO dto = customerService.updateCustomer(id, customerDTO);
+        return new ResponseEntity<>(dto,HttpStatus.OK);
+    }
+
 
 }

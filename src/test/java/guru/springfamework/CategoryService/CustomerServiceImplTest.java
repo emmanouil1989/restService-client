@@ -68,4 +68,15 @@ public class CustomerServiceImplTest extends EntitiesAbstract {
         assertNotNull(customer);
         assertEquals(OUAOU,customer.getFirstname());
     }
+
+    @Test
+    public void updateCustomer() {
+
+        when(customerRepository.save(any())).thenReturn(getCustomer2());
+
+        CustomerDTO response = customerService.updateCustomer(2l, getCustomer1DTO());
+
+        assertNotNull(response);
+        assertEquals(LASTNAME,response.getLastname());
+    }
 }
