@@ -18,6 +18,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class CustomerServiceImplTest extends EntitiesAbstract {
@@ -78,5 +80,13 @@ public class CustomerServiceImplTest extends EntitiesAbstract {
 
         assertNotNull(response);
         assertEquals(LASTNAME,response.getLastname());
+    }
+
+    @Test
+    public void deleteCustomer() {
+
+        customerService.deleteCustomer(2l);
+        verify(customerRepository,times(1)).deleteById(anyLong());
+
     }
 }

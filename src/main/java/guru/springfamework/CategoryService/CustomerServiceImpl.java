@@ -7,6 +7,7 @@ import guru.springfamework.repositories.CustomerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -85,5 +86,10 @@ public class CustomerServiceImpl implements CustomerService {
 
             return returnDTO;
         }).orElseThrow(RuntimeException::new);
+    }
+
+    @Override
+    public void deleteCustomer(Long id) {
+            customerRepository.deleteById(id);
     }
 }
