@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import guru.springfamework.CategoryService.CustomerService;
 import guru.springfamework.EntitiesAbstract;
 import guru.springfamework.JsonHelper;
+import guru.springfamework.api.v1.model.CustomerDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,10 +21,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -91,5 +91,20 @@ public class CustomerControllerTest extends EntitiesAbstract {
                 .andExpect(jsonPath("$.firstname", equalTo(FRISTNAME)));
 
 
+    }
+
+    @Test
+    public void patchCustomer() throws Exception {
+        CustomerDTO localCustomer = CustomerDTO.builder().firstname("manos").build();
+
+        CustomerDTO customer1DTO = getCustomer1DTO();
+        customer1DTO.setFirstname(localCustomer.getFirstname());
+        when(customerService.patchCustomer(anyLong(),any())).thenReturn(customer1DTO);
+
+        mockMvc.perform(patch(API_V1_CUSTOMERS + "/1")
+        .contentType(MediaType.APPLICATION_JSON)
+        .content(JsonHelper.toJson(localCustomer)))
+        .andExpect(status().isOk())
+        .andExpect(jsonPath("$.firstname", equalTo("manos")));
     }
 }
