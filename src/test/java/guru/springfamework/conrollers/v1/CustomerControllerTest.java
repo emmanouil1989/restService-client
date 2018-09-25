@@ -4,9 +4,11 @@ import ch.qos.logback.classic.Logger;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import guru.springfamework.CategoryService.CustomerService;
+import guru.springfamework.CategoryService.PropertyNotFoundException;
 import guru.springfamework.EntitiesAbstract;
 import guru.springfamework.JsonHelper;
 import guru.springfamework.api.v1.model.CustomerDTO;
+import guru.springfamework.conrollers.RestResponseEntityExceptionHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -45,7 +47,9 @@ public class CustomerControllerTest extends EntitiesAbstract {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(customerController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(customerController)
+                .setControllerAdvice(new RestResponseEntityExceptionHandler())
+                .build();
     }
 
     @Test
@@ -118,6 +122,16 @@ public class CustomerControllerTest extends EntitiesAbstract {
                 .andExpect(status().isOk());
 
         verify(customerService,times(1)).deleteCustomer(anyLong());
+
+    }
+
+    @Test
+    public void notFound() throws Exception{
+        when(customerService.getCustomerById(anyLong())).thenThrow(PropertyNotFoundException.class);
+
+        mockMvc.perform(get(API_V1_CUSTOMERS + "/1")
+        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
 
     }
 }

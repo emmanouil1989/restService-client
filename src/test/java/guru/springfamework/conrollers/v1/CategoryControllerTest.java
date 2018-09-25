@@ -3,6 +3,7 @@ package guru.springfamework.conrollers.v1;
 import guru.springfamework.CategoryService.CategoryService;
 import guru.springfamework.EntitiesAbstract;
 import guru.springfamework.api.v1.model.CategoryDTO;
+import guru.springfamework.conrollers.RestResponseEntityExceptionHandler;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
@@ -35,7 +36,9 @@ public class CategoryControllerTest extends EntitiesAbstract {
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(categoryController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(categoryController)
+
+                .build();
     }
 
     @Test

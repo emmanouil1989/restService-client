@@ -43,7 +43,7 @@ public class CustomerServiceImpl implements CustomerService {
             customerDTO.setCustomer_url(API_V2_CUSTOMER + customer.getId().toString());
             return customerDTO;
         })
-                .orElseThrow(RuntimeException::new);
+                .orElseThrow(PropertyNotFoundException::new);
     }
 
     @Override
@@ -85,7 +85,7 @@ public class CustomerServiceImpl implements CustomerService {
             returnDTO.setCustomer_url(API_V2_CUSTOMER + customer.getId().toString());
 
             return returnDTO;
-        }).orElseThrow(RuntimeException::new);
+        }).orElseThrow(PropertyNotFoundException::new);
     }
 
     @Override
